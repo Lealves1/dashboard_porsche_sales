@@ -22,7 +22,11 @@ O gráfico de receita agrupa as versões em famílias, como 911, Cayenne e Macan
 
 ## Preparação e tratamento da base
 
-Primeiro, fiz o tratamento manual de alguns dados da planilha. Depois dessa preparação inicial, a base foi utilizada com apoio da IA para desenvolver a dashboard.
+A base de vendas Porsche foi fornecida pelo professor. Durante a aula, acompanhei o tratamento dos dados com apoio da IA, usando um plano de regras para organizar as informações da planilha.
+
+Esse plano definia como padronizar datas, modelos, anos, preços, quilometragem, pagamentos, cidades, estados e status de entrega. O tratamento gerou as colunas chamadas de `Sanitized`, mantendo as informações originais ao lado para comparação. Os valores que não podiam ser tratados com segurança ficaram marcados como `INVALID`.
+
+Depois, no Excel, excluí as colunas originais e mantive as tratadas para usar na dashboard. Também ajustei a coluna de preços, trocando o ponto pela vírgula para conseguir trabalhar com os valores em formato monetário no Excel. Os preços da base estão em dólares americanos (USD).
 
 ### Revisão das datas inválidas
 
@@ -40,7 +44,7 @@ Com isso, foi possível corrigir estas três datas:
 
 Das **24 datas inválidas**, **3 foram recuperadas** e **21 continuaram pendentes**. Para corrigir as outras, seria preciso confirmar a informação na origem. Os valores originais foram mantidos, e essa revisão não mudou os preços, modelos, pagamentos ou status.
 
-Os registros sem data válida continuam nos totais de **Todos os anos**. Também dá para olhar só esses registros no filtro **Sem data válida**. Quando escolhemos um ano, eles ficam de fora, pois não sabemos a qual ano pertencem.
+Os registros sem data válida continuam nos totais de **Todos os anos**. Também dá para olhar só esses registros no filtro **Sem data válida**. Quando escolhemos um ano, esses registros ficam de fora porque não têm uma data válida para usar nesse filtro.
 
 ### Como os números são calculados
 
@@ -48,7 +52,6 @@ Os registros sem data válida continuam nos totais de **Todos os anos**. Também
 - Ao abrir a dashboard, aparecem **93 registros**, porque os **7 cancelados** ficam de fora. Dá para incluí-los marcando a opção de cancelamentos.
 - A **receita registrada** soma os preços dos registros selecionados, incluindo operações pendentes. O **ticket médio** divide essa soma pela quantidade de registros.
 - O filtro de ano usa o **ano da venda**. O ano do veículo é outra informação.
-- Os preços da base estão em dólares americanos (USD).
 - Os nomes de clientes e vendedores ficaram fora do HTML publicado.
 
 ## Pedido inicial e refinamentos
@@ -82,23 +85,6 @@ Os pedidos foram feitos ao longo da conversa. O HTML foi sendo refinado conforme
 
 Usei o **ChatGPT para gerar, visualizar e refinar o HTML**. O desenvolvimento principal aconteceu por meio da conversa e dos ajustes que fui solicitando. Depois, usei **Git e GitHub** para enviar o código e publicar a dashboard no **GitHub Pages**.
 
-### Experiência complementar: agente com duas skills
-
-Depois da criação da dashboard, também testei, com apoio da IA, um fluxo de agente com duas skills. Fiz essa parte como complemento de aprendizado, para entender como organizar um método que pudesse ser reutilizado em futuras atualizações.
-
-| Skill | Função |
-|---|---|
-| `tratar-vendas-porsche` | Conferir a base, aplicar as regras de tratamento e registrar correções e pendências. |
-| `desenhar-dashboard-porsche` | Receber os dados tratados, atualizar uma cópia da dashboard e verificar os indicadores e filtros, preservando o visual. |
-
-No teste, o agente usou primeiro a skill de tratamento e depois a de atualização da dashboard.
-
-O assistente de IA fez os testes em cópias dos arquivos: **106 recortes com a base do projeto** e **43 recortes com uma base de exemplo de 8 registros**. Foram conferidos os filtros, cálculos, cancelamentos, registros sem data válida e a exportação CSV. O visual e o código dos gráficos foram preservados na atualização.
-
-A aparência no navegador e a criação de um layout novo do zero não foram testadas nessa etapa.
-
-Esse teste foi um complemento ao projeto. As skills são usadas pelo assistente de IA; a dashboard publicada abre e funciona sozinha, sem precisar executar o agente.
-
 ## O que é possível fazer na dashboard
 
 - Consultar vendas não canceladas, receita registrada, ticket médio e veículos entregues.
@@ -110,7 +96,7 @@ Esse teste foi um complemento ao projeto. As skills são usadas pelo assistente 
 
 **Exemplo de uso:** ao selecionar a família **911**, os indicadores, os gráficos e a tabela passam a mostrar somente os registros daquela família. É possível combinar esse filtro com um estado ou uma forma de pagamento.
 
-# Imagens do projeto
+## Imagens do projeto
 
 Capturas da dashboard Porsche, com a visão geral e um exemplo de filtro aplicado.
 
@@ -122,9 +108,9 @@ Capturas da dashboard Porsche, com a visão geral e um exemplo de filtro aplicad
 
 Uma das ideias da aula que mais fez sentido para mim foi escolher a ferramenta de acordo com o problema que preciso resolver e entender o motivo dessa escolha.
 
-Neste trabalho, comecei pela preparação dos dados, defini as perguntas e usei a IA como apoio para construir e melhorar a dashboard. Depois, voltei à base para revisar as datas e experimentei o fluxo com duas skills. Cada etapa teve uma finalidade.
+Neste trabalho, comecei pelo tratamento da planilha, escolhi as perguntas com ajuda da IA e fui pedindo ajustes na dashboard. Depois, voltei à base para revisar as datas e publiquei o resultado no GitHub Pages.
 
-Também entendi que um gráfico pode ficar bonito e ainda assim não responder ao que precisamos saber. Por isso, as perguntas de negócio e as regras dos dados foram tão importantes quanto a aparência. O cuidado de manter as datas sem correção segura como pendentes fez parte desse aprendizado.
+Também entendi que um gráfico pode ficar bonito e ainda assim não responder ao que precisamos saber. Por isso, as perguntas de negócio e a revisão das datas mostraram que precisamos conferir os dados e entender até onde uma correção pode ir. Algumas datas puderam ser recuperadas; outras precisam de uma informação que não temos.
 
 Para mim, esse foi o principal aprendizado: além de aprender a usar as ferramentas, entender como elas ajudam a resolver o problema e conferir o resultado. Foi isso que procurei praticar nesse trabalho, desde o tratamento da base até a publicação.
 
